@@ -136,6 +136,7 @@
               _this.isTogel = true
               _this.togelC = true
               _this.$nextTick(function () {
+                var arr = document.getElementsByClassName('a_lists')
                 var xx = arr[index].getElementsByClassName('a_contentX')[0].offsetHeight;
                 var zz = arr[index].getElementsByClassName('a_contentZ')[0].offsetHeight;
                 if (xx > 150) {

@@ -642,7 +642,7 @@ html, body {
     <div id='h-left' @click="sy">
       <span ></span>
       <div id="title">
-        <h1 class="t1">逸途-旅游问答社区{{aaa}}</h1>
+        <h1 class="t1">逸途-旅游问答社区</h1>
         <p class="p1">EASYTO TOURISM KNOWLEDGE</p>
       </div>
     </div>

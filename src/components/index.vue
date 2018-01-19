@@ -514,21 +514,24 @@
           <li>
             <span class="sp1"></span>
             <div>
-              <p>¥{{totalMoney}}</p>
+              <!--<p>¥{{totalMoney}}</p>-->
+              <p>¥68674.80</p>
               <p class="p2">答主回享总额</p>
             </div>
           </li>
           <li>
             <span class="sp2"></span>
             <div>
-              <p>{{totalUser}}</p>
+              <!--<p>{{totalUser}}</p>-->
+              <p>267</p>
               <p class="p2">参与答主</p>
             </div>
           </li>
           <li>
             <span class="sp3"></span>
             <div>
-              <p>{{totalAnswer}}</p>
+              <!--<p>{{totalAnswer}}</p>-->
+              <p>128787</p>
               <p class="p2">已回答问题</p>
             </div>
           </li>
