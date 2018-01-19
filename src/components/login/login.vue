@@ -2,7 +2,7 @@
   <div class="loginVue">
     <div class="container">
       <transition name="fade">
-        <toastlo id="toastlo" v-show="toastShow" style="top:340px;z-index:999"></toastlo>        
+        <toastlo id="toastlo" v-show="toastShow" style="top:340px;z-index:999"></toastlo>
       </transition>
       <div class="head">
         <ul>
@@ -22,15 +22,15 @@
         <div class="setPassword">
           <label for="">密码：</label>
           <input type="password" v-model="mobileMain.password" @keyup.13="login">
-          <router-link class="getPassword" to="/getPassword">忘记密码?</router-link>          
+          <router-link class="getPassword" to="/getPassword">忘记密码?</router-link>
         </div>
         <div class="login">
           <div class="warn">
             <p v-show="phoneWarn.warn1">你输入的账号或密码有误。</p>
             <p v-show="phoneWarn.warn2">该账号被禁用，如有疑问请联系客服。</p>
-            <p v-show="phoneWarn.warn7">请输入密码。</p>            
-            <p v-show="toastShow1">用户账号不存在。</p>            
-            <p v-show="toastShow2">服务异常，请稍后再试。</p>            
+            <p v-show="phoneWarn.warn7">请输入密码。</p>
+            <p v-show="toastShow1">用户账号不存在。</p>
+            <p v-show="toastShow2">服务异常，请稍后再试。</p>
           </div>
           <button type="button" @click="login" style="cursor:pointer">登录</button>
         </div>
@@ -54,7 +54,7 @@
             <p v-show="phoneWarn.warn5">请输入手机号。</p>
             <p v-show="phoneWarn.warn6">你输入的手机号不合法，请输入正确11位手机号。</p>
             <p v-show="toastShow4">验证码发送失败。</p>
-            <p v-show="fastMain.warn4">验证码发送次数超限，请稍后再试。</p>            
+            <p v-show="fastMain.warn4">验证码发送次数超限，请稍后再试。</p>
           </div>
         </div>
         <div class="password">
@@ -85,7 +85,7 @@
 <script>
 import toastlo from '../toast/toast'
 export default {
-  components:{toastlo}, 
+  components:{toastlo},
   data() {
     return {
       mobilePsd: true,//显示账号密码登录true，快捷登录为false
@@ -107,11 +107,11 @@ export default {
         password: '',
         warn1:false,
         warn2:false,
-        warn3:false, 
-        warn4:false, 
+        warn3:false,
+        warn4:false,
         checkBtn:true,
         time:30
-      },      
+      },
       toastShow1:false,//账号不存在--账号密码登录
       toastShow2:false,//服务异常--账号密码登录
       toastShow3:false,//服务异常--快捷登录
@@ -136,12 +136,12 @@ export default {
     //       this.fastMain.checkBtn = true;
     //       this.fastMain.time = 30;
     //       clearInterval(_this.timer);
-    //       // 隐藏提示          
+    //       // 隐藏提示
     //       this.hidden();
     //     }
     //   },
     //   deep:true
-    // },   
+    // },
     mobilePsd(curVal,oldVal){
       var _this = this;
       if(curVal==true){
@@ -175,7 +175,7 @@ export default {
       this.fastMain.checkBtn = true;
       this.fastMain.time = 30;
       clearInterval(_this.timer);
-      // 隐藏提示          
+      // 隐藏提示
       this.hidden();
     }
     next()
@@ -203,14 +203,14 @@ export default {
     },
     // 验证
     validate (info) {
-      // this.hidden();      
+      // this.hidden();
       // 验证手机号---账号密码登录
       if(info==='phone_main'){
         if (this.mobileMain.phone.length === 0) {
           this.phoneWarn.warn3 = true
           this.phoneWarn.warn4 = false
           return false
-        } else if (/^1[3|4|5|7|8][0-9]\d{8}$/.test(this.mobileMain.phone)) {          
+        } else if (/^1[3|4|5|7|8][0-9]\d{8}$/.test(this.mobileMain.phone)) {
           this.phoneWarn.warn3 = false
           this.phoneWarn.warn4 = false
           return true
@@ -219,7 +219,7 @@ export default {
           this.phoneWarn.warn4 = true
           return false
         }
-        
+
       }
       // 验证密码是否为空---账号密码登录
       if(info==='phone_password'){
@@ -229,10 +229,10 @@ export default {
         }else{
           this.phoneWarn.warn7 = false
           return true
-        } 
+        }
       }
-      
-      // 验证手机号---快捷登录---验证码  
+
+      // 验证手机号---快捷登录---验证码
       if(info==='phone_fast'){
         if (this.fastMain.phone.length === 0) {
           this.phoneWarn.warn5 = true
@@ -248,7 +248,7 @@ export default {
           return false
         }
       }
-        
+
     },
     // 账号密码登录=========================================
     login() {
@@ -267,16 +267,16 @@ export default {
             if(res.data.code==200){
               _this.enterToast('登录成功',1000)
               setTimeout(()=>{
-                _this.$router.push({path:'/',query:{id:1}});                
+                _this.$router.push({path:'/',query:{id:1}});
               },1000)
               document.cookie="nickname="+res.data.data.nickname;
-              document.cookie="headUrl="+res.data.data.headUrl; 
+              document.cookie="headUrl="+res.data.data.headUrl;
               _this.remState()
             }else if(res.data.code==4001||res.data.code==4007||res.data.code==4008){
               _this.phoneWarn.warn1=true;
               _this.phoneWarn.warn2=false;
             }else if(res.data.code==4006){
-              _this.toastShow1=true;          
+              _this.toastShow1=true;
             }else if(res.data.code==40011){
               _this.phoneWarn.warn1=false;
               _this.phoneWarn.warn2=true;
@@ -284,7 +284,7 @@ export default {
               this.toastShow2=true
             }
           })
-         }         
+         }
       };
     },
     // 设置cookie
@@ -292,7 +292,7 @@ export default {
       var date = new Date();
       date.setDate(date.getDate() + day);
       document.cookie = name + '=' + value + ';expires='+ date;
-    },   
+    },
     // 清除cookie
     delCookie(name){
       this.setCookie(name,null,-1);
@@ -310,14 +310,14 @@ export default {
       //   this.delCookie('password');
       // }
     },
-    
+
     // 快速登录====================================
     // 获取验证码
     getChecknum() {
       var _this = this;
       this.fastMain.password=''
-      this.toastShow4=false    
-      this.fastMain.warn4=false  
+      this.toastShow4=false
+      this.fastMain.warn4=false
       this.toastShow3=false
       if(this.validate('phone_fast')){
         // 调接口------------------
@@ -342,7 +342,7 @@ export default {
               _this.toastShow3=true//服务异常
             }
         })
-      } 
+      }
     },
     // 登录
     fastLogin() {
@@ -366,9 +366,9 @@ export default {
               setTimeout(()=>{
                 _this.$router.push({path:'/',query:{id:1}});
                 document.cookie="nickname="+res.data.data.nickname;
-                document.cookie="headUrl="+res.data.data.headUrl; 
-                _this.mobilePsd=true                
-              },1000)              
+                document.cookie="headUrl="+res.data.data.headUrl;
+                _this.mobilePsd=true
+              },1000)
             }else if(res.data.code==4000){//手机号码有误
               _this.phoneWarn.warn6 = true;
             }else if(res.data.code==4005){//验证码不能为空
@@ -382,8 +382,8 @@ export default {
             }
           })
         }
-        
-      }     
+
+      }
     },
     enterToast(text,time) {
       var toast = document.getElementById("toastlo");
@@ -432,6 +432,7 @@ export default {
         height: 100%;
         line-height: 75px;
         text-align: center;
+        cursor: pointer;
       }
     }
   }
@@ -505,15 +506,15 @@ export default {
         font-size: 12px;
         color: rgb(112, 112, 112);
       }
-      
+
     }
 
     .login {
       button {
-        margin-top 10px        
+        margin-top 10px
         width: 420px;
       }
-      
+
     }
 
     .loginState {
@@ -581,8 +582,8 @@ export default {
       padding: 5px 0 0 87px;
       box-sizing: border-box;
     }
-    
-    
+
+
   }
 
   .fast_main {
@@ -601,7 +602,7 @@ export default {
       input{
         margin 0px 0px 0px 10px
       }
-      
+
     }
 
     .password {
@@ -611,7 +612,7 @@ export default {
         margin 0px 0px 0px 10px
       }
 
-     
+
     }
     .warn {
       height: 25px;

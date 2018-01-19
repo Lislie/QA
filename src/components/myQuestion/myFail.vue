@@ -13,10 +13,12 @@
             <div class='income'>悬赏积分<em class=gold></em><a class=goldNum>{{listDetail.integral}}</a>
               <div class='source'>来源：{{listDetail.source}}<span>|</span>{{listDetail.createTime}}</div>
             </div>
-            <el-button type="primary" @click='reAnswer (item.questionId)' v-show='!listDetail.hideReanswer'>重新回答</el-button>
+            <el-button type="primary" @click='reAnswer (item.questionId)' v-show='!listDetail.hideReanswer'>重新回答
+            </el-button>
             <div class='myAnswer'>
               <h2 class='a_top'><i class='lamp'></i>我的回答<span class='a_times'>{{myAnswers.createTime}}</span></h2>
-              <div :class="isTogel ? 'a_content a_contentX' : 'a_content hideSome a_contentX' " v-html='myAnswers.myAnswer'></div>
+              <div :class="isTogel ? 'a_content a_contentX' : 'a_content hideSome a_contentX' "
+                   v-html='myAnswers.myAnswer'></div>
               <el-button type="text" @click='detailTogel(index,"x")' v-show='hasTogelX & index === activeIndex'>{{buttonText}}</el-button>
             </div>
             <div class='myAnswer errAnswer' v-show='hasErrAnswer' v-for='(val,x) in listDetail.errorList'>
@@ -86,29 +88,34 @@
         this.activeIndex = index
         this.show_a = false
       },
-      isHide (index,questionId) {
+      isHide (index, questionId) {
 
         var _this = this
-        let  question = questionId
+        let question = questionId
         _this.$indexServer.failDetailed(question)
           .then((res) => {
             if (res.data.code == 200) {
               _this.listDetail = res.data.data
               _this.myAnswers = _this.listDetail.myAnswer
               _this.show_a = true
-              var arr = document.getElementsByClassName('a_lists')
-              var errBtns = document.getElementsByClassName('errBtn')
               if (_this.listDetail.errorList) {
                 _this.hasErrAnswer = true
-                var yy = arr[index].getElementsByClassName('a_contentY')
                 var n = _this.listDetail.errorList.length
                 _this.$nextTick(() => {
+                  var arr = document.getElementsByClassName('a_lists')
+                  var errBtns = document.getElementsByClassName('errBtn')
+                  var yy = arr[index].getElementsByClassName('a_contentY')
+                  console.log(arr)
+                  console.log(errBtns)
+                  console.log(yy)
                   for (let i = 0; i < n; i++) {
                     if (yy[i].offsetHeight > 150) {
                       errBtns[i].style.display = 'block'
                       yy[i].classList.add("hideSome")
+                      console.log(yy[i])
+                      console.log(this)
                       errBtns[i].onclick = function () {
-                        if (yy[i].classList.contains('hideSome')==true) {
+                        if (yy[i].classList.contains('hideSome') == true) {
                           yy[i].classList.remove("hideSome")
                           this.innerHTML = '收起'
                         }

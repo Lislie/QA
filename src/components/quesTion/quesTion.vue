@@ -597,10 +597,10 @@
           <span></span>
           <h2>错误回答</h2>
         </div>
-        <div :class="isTogel ? 'a_content' : 'a_content hideSome'"   ref="badCont">
+        <div :class="isTogel ? 'a_content' : 'a_content hideSome'" ref="bad">
           <div v-html="item.errorAnwser"></div>
         </div>
-         <el-button type="text" v-show="btn"  @click='detailTogel(index)'class="btn3" ref="bad">{{buttonText}}</el-button>
+         <el-button type="text" v-show="btn"  @click='detailTogel()'class="btn3" >{{buttonText}}</el-button>
       </div>
       <!--<div class='myAnswer errAnswer' v-show='hasErrAnswer' v-for='(val,x) in listDetail.errorList'>-->
         <!--<h2 class='a_top'><i class='lamp'></i>错误回答<span class='a_times'>{{val.createTime}}</span></h2>-->
@@ -638,7 +638,7 @@ export default {
       },
       isTogel: false,
       isTogel2: false,
-      buttonText:[ '显示全文', '显示全文', '显示全文'],
+      buttonText:'显示全文',
       buttonText2: '显示全文',
       ue1: "ue1",
       centerDialogVisible: false,
@@ -679,7 +679,7 @@ export default {
     //   return this.$refs.myQuillEditor.quill
     // }
   },
-  beforeRouteLeave (to, from, next) {
+  beforeRouteUpdate (to, from, next) {
     console.log(to,from,next)
     this.$router.go(0)
 
@@ -694,15 +694,28 @@ export default {
     next()
   },
    mounted() {
-
-     console.log(this.$refs.can.offsetHeight)
-
-
-
-
     this.$emit('title',{a:this.answerCount,b:this.anticipatedIncome,c:false})
     console.log(this.$route.query.id)
-    if(this.$route.query.id !== undefined){
+     if(this.$refs.can.offsetHeight >= 147){
+       this.btn2 = true
+     } else{
+       this.btn2 = false
+     }
+     if(this.errorList !== ''){
+       this.err = true
+       let cont = this.$refs.bad[0]
+
+       if(cont.offsetHeight >= 147){
+         this.btn = true
+       }else {
+         this.btn = false
+       }
+     }else {
+       this.err = false
+     }
+
+
+     if(this.$route.query.id !== undefined){
       this.sx = true
       this.$indexServer.reanswer(this.$route.query.id)
         .then((res) =>{
@@ -723,29 +736,25 @@ export default {
 
             // this.right = true
             this.centerDialogVisible = false
-            if(this.$refs.can.offsetHeight >= 147){
-              this.btn2 = true
-            } else{
-              this.btn2 = false
-            }
             this.$nextTick(() =>{
               this.detailTogel()
-              if(this.errorList !== ''){
-                this.err = true
-              }else {
-                this.err = false
-              }
               if(this.$refs.can.offsetHeight >= 147){
                 this.btn2 = true
               } else{
                 this.btn2 = false
               }
-              if(this.$refs.badCont.offsetHeight >= 147){
-                this.btn = true
-              }else {
-                this.btn = false
-              }
+              if(this.errorList !== ''){
+                this.err = true
+                let cont = this.$refs.bad[0]
 
+                if(cont.offsetHeight >= 147){
+                  this.btn = true
+                }else {
+                  this.btn = false
+                }
+              }else {
+                this.err = false
+              }
 
             })
             // this.isHide()
@@ -763,7 +772,6 @@ export default {
     // 初始化
     // window.scrollTo(0,0)
 
-    this.init()
     localStorage.setItem("question", true);
   },
   // beforeRouteLeave (to, from, next) {
@@ -775,15 +783,7 @@ export default {
   // },
 
   methods: {
-    toge(){
 
-    },
-    init: function () {
-      let url = 'http://v3.jiathis.com/code/jia.js'
-      let script = document.createElement('script')
-      script.setAttribute('src', url)
-      // document.getElementsByTagName('head')[0].appendChild(script)
-    },
     com() {
       // this.$refs.ue.remove()
       this.$indexServer.newQuestion()
@@ -810,21 +810,24 @@ export default {
             this.$refs.ue.remove()
             this.$nextTick(() =>{
 
-              if(this.errorList !== ''){
-                this.err = true
-              }else {
-                this.err = false
-              }
               if(this.$refs.can.offsetHeight >= 147){
                 this.btn2 = true
               } else{
                 this.btn2 = false
               }
-              if(this.$refs.badCont.offsetHeight >= 147){
-                this.btn = true
+              if(this.errorList !== ''){
+                this.err = true
+                let cont = this.$refs.bad[0]
+
+                if(cont.offsetHeight >= 147){
+                  this.btn = true
+                }else {
+                  this.btn = false
+                }
               }else {
-                this.btn = false
+                this.err = false
               }
+
 
 
             })
@@ -963,15 +966,15 @@ export default {
     isShow(n) {
       this.show_a = !this.show_a
     },
-    detailTogel(index) {
+    detailTogel() {
       // console.log(index)
       // let Btn = this.$refs.bad
       // let Cont = this.$refs.badCont
       // Btn[index].classList.remove('')
       if (this.isTogel === true) {
-        this.buttonText[index] = '显示全文'
+        this.buttonText = '显示全文'
       } else if (this.isTogel === false) {
-        this.buttonText[index] = '收起'
+        this.buttonText = '收起'
       }
       this.isTogel = !this.isTogel
     },

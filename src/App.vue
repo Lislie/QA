@@ -618,7 +618,7 @@ html, body {
   padding: 0;
   background-color: #fff;
   min-height: 800px;
-  overflow hidden
+  overflow hidden !important
 }
   .is-opened{
     background-color red !important
@@ -916,6 +916,13 @@ export default {
           this.Login=true
           this.nickname=this.getCookie('nickname')
           this.headUrl=this.getCookie('headUrl')
+          this.$indexServer.auditHeader()
+            .then((res) => {
+              if (res.data.code === 200) {
+                let data = res.data.data
+                this.answerNum = data.answerNum
+              }
+            })
         }else if(curVal.query.id==0){
           this.Login=false
           this.delCookie('phone')
@@ -960,12 +967,12 @@ export default {
           let data = res.data.data
           this.answerNum = data.answerNum
         }
-        if(res.data.code === 400){
-          this.open4()
-          this.$router.push({ name: 'Login' });
-          this.que = true
-          this.login = false
-        }
+        // if(res.data.code === 400){
+        //   this.open4()
+        //   this.$router.push({ name: 'Login' });
+        //   this.que = true
+        //   this.login = false
+        // }
         // if(res.data.code === 400){
         //   this.open4()
         //   this.$router.push({ name: 'Login' });
@@ -998,6 +1005,7 @@ export default {
     // 可以访问组件实例 `this`
     next()
   },
+
   methods: {
     loge(e){
       this.Login = e
@@ -1029,20 +1037,7 @@ export default {
       this.$router.push('/')
 
     },
-    myQuen() {
-      if (this.getCookie('nickname')&&this.getCookie('headUrl')) {
-        this.$router.push('/quesTion')
-        this.que =false
-        localStorage.setItem("qu", true);
-        this.$router.go(0);
 
-      } else {
-        this.$message({
-          message: '请先登录再进行答题',
-          type: 'warning'
-        });
-      }
-    },
     ext() {
       this.que = true
       this.$indexServer.reset()
@@ -1050,16 +1045,16 @@ export default {
           console.log(res.data)
           if(res.data.code === 400){
             this.open4()
+            this.exit()
             this.que = true
             this.Login = false
             this.$router.push({ name: 'Login' });
-
           }
         })
       // this.$router.go(-1);
       this.que = true
-      this.$router.push('/');
-
+      // this.$router.push('/');
+      this.$router.push({ name: 'index' });
 
     },
     rot() {

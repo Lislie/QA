@@ -10,7 +10,7 @@
             </ul>
         </div>
         <!-- 主要内容 -->
-        <div class="content">
+        <div class="withdraw_content">
             <transition name="fade">
                 <toast3 id="toast3" v-show="toastShow"   style="top:45%;z-index:999"></toast3>
             </transition>
@@ -306,10 +306,11 @@ export default {
 </script>
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .withdraw {
-    padding: 0 15%;
+    margin: 0 15%;
+    padding:0 20px;
     font-family: 'PingFangSC-regular';
-    // min-width 1024px
-    min-width: 950px;
+    min-width 1024px
+    box-sizing border-box
 }
 
 .aside {
@@ -318,7 +319,7 @@ export default {
     // border: 1px solid #d2d2d2;
     position: fixed;
     top: 105px;
-    left: 3.5%;
+    right: 85%;
     box-shadow: 0px 0px 10px #D6D6D6;
 
     ul {
@@ -367,8 +368,7 @@ export default {
   opacity: 0;
 }
 // 主要内容
-.content {
-    // margin-left: 166px;
+.withdraw_content {
     margin-top: 21px;
     box-shadow: 0px 0px 10px #D6D6D6;
     background-color: #fff;

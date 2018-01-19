@@ -18,14 +18,14 @@
                         <!-- <img class="pic" src="./aaa.jpg" alt=""> -->
                         <img class="pic" :src="userData.headUrl" alt="">
                     </div>
-                    <div class="personal_img" style="border:none" v-show="!userData.headUrl"></div>                    
+                    <div class="personal_img" style="border:none" v-show="!userData.headUrl"></div>
                     <div class="name">{{userData.nickname}}</div>
                     <div class="phone">{{userData.mobile}}</div>
                 </div>
                 <!-- 申请提现模块 -->
                 <div class="money">
                     <span>当前账户余额：</span>
-                    <span>{{resData.currentIntegral}}111</span>
+                    <span>{{resData.currentIntegral}}</span>
                     <div class="line"></div>
                     <span>价值现金：</span><span>￥{{resData.cashValue}}</span>
                     <button type="button" @click="applyWithdrawal" style="cursor:pointer">申请提现</button>
@@ -70,7 +70,7 @@
                                     </el-option>
                                 </el-select>
                             </template>
-                            <!-- <img id="select_img" :class="{rotate_img1:isRotate2,rotate_img2:!isRotate2}" src="./aaa.png" alt="">                            
+                            <!-- <img id="select_img" :class="{rotate_img1:isRotate2,rotate_img2:!isRotate2}" src="./aaa.png" alt="">
                             <select name="" id="select2" v-model="inquireParam.transactionState" @click="isRotate2=!isRotate2" @blur="isRotate2=false">
                                 <option value="">请选择</option>
                                 <option value="1">审核中</option>
@@ -159,13 +159,13 @@
                                 <a v-else>——</a>
                             </td>
                             <td>
-                                <a v-show="!item.cash">——</a>                                
+                                <a v-show="!item.cash">——</a>
                                 <a v-show="item.cash && item.state == 2" style="color:rgb(231,51,27)">{{item.cash}}</a>
                                 <a v-show="item.cash && item.state != 2">{{item.cash}}</a>
                             </td>
                             <td>
                                 <a v-show="item.state == 1" style="color:#266BE8;">审核中</a>
-                                <a v-show="item.state == 2">完成</a>                                
+                                <a v-show="item.state == 2">完成</a>
                                 <a v-show="item.state == 3" style="color:#E7331B;text-decoration:underline;cursor:pointer" :title="item.remark">审核失败</a>
                             </td>
                             <td>{{item.integralBalance}}</td>
@@ -200,7 +200,7 @@
                     </div>
 
                 </div>
-            </transition>            
+            </transition>
             <!-- 审核说明弹框 -->
             <div class="box" v-show="auditBomb">
                 <!-- 审核说明 -->
@@ -215,7 +215,7 @@
                 </div>
             </div>
             <transition name="fade">
-                <toast1 id="toast1" v-show="toastShow" style="top:300px"></toast1>                                    
+                <toast1 id="toast1" v-show="toastShow" style="top:300px"></toast1>
             </transition>
         </div>
     </div>
@@ -224,7 +224,7 @@
 <script>
 import toast1 from '../toast/toast'
 export default {
-    components:{toast1}, 
+    components:{toast1},
     data() {
         return {
             // 侧边栏
@@ -360,7 +360,7 @@ export default {
             .then((res)=>{
                 // console.log(res)
                 if(res.data.code==200){
-                    _this.resData = res.data.data; //后台返回数据                
+                    _this.resData = res.data.data; //后台返回数据
                     _this.listData = res.data.data.transaction; //列表数据
                     _this.total = parseInt(res.data.total) // 记录总数
                 }else if(res.data.code==400){
@@ -379,7 +379,7 @@ export default {
                     _this.enterToast('服务异常，请稍后再试')
                 }
             })
-            
+
         },
 
         // 分页  获取当前页
@@ -631,7 +631,7 @@ export default {
                         padding-left: 5px;
                         font-size 16px
                         font-family: 'PingFangSC-Regular';
-                        
+
                     }
                 }
 
@@ -663,7 +663,7 @@ export default {
                         border-radius: 0;
                         height: 36px;
                         box-sizing: border-box;
-                        
+
                     }
                     .el-date-editor .el-range-input, .el-date-editor .el-range-separator{
                         font-size 16px

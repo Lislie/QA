@@ -1,7 +1,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
 .content {
   width: 100%;
-  height: 100%;
+  /*height: 100%;*/
   min-width: 1024px;
   color: #fff;
   font-family: 'STYuanti-SC-Regular';
@@ -9,8 +9,8 @@
 }
 
 .index1 {
-  width: 100%;
-  // min-height 60px
+  width: 100%
+  height 650px
   background: url('../assets/banner.png') no-repeat no-repeat;
   overflow: hidden;
   .line22{
@@ -651,17 +651,10 @@ export default {
       framShow:false
     }
   },
-  // beforeRouteLeave (to, from, next) {
-  //   console.log(to,from)
-  //   if(to.name = 'question'){
-  //     this.que = false
-  //   }
-  //   // 在当前路由改变，但是该组件被复用时调用
-  //   // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-  //   // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-  //   // 可以访问组件实例 `this`
-  //   next()
-  // },
+  beforeRouteLeave (to, from, next) {
+    this.framShow = false
+    next()
+  },
   mounted() {
     this.$indexServer.headData()
       .then((res) => {
@@ -693,21 +686,22 @@ export default {
       if (this.getCookie('nickname')&&this.getCookie('headUrl')) {
         this.framShow = true
         this.$emit('que',false)
-
         this.$indexServer.reset()
           .then((res) => {
             console.log(res.data)
-            if(res.data.code === 400){
-              this.open4()
-              this.$router.push({ name: 'Login' });
-              // this.que = true
-              this.$emit('Login',false)
-            } else {
+            if(res.data.code === 200){
               setTimeout(() => {
                 this.framShow = false
                 this.$router.push('/quesTion')
                 localStorage.setItem("qu", true);
               }, 1000)
+            }
+            if(res.data.code === 400){
+              this.$emit('que',true)
+              this.open4()
+              this.$router.push({ name: 'Login' });
+              // this.que = true
+              this.$emit('Login',false)
             }
           })
       } else {
